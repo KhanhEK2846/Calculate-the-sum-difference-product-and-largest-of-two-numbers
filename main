@@ -1,0 +1,58 @@
+ 		.data
+Nhap1:	.asciiz"Nhap so thu nhat: "
+Nhap2:	"\Nhap so thu hai: "
+Tong:	"\nTong hai so: "
+Hieu:	"\nHieu hai so: "
+Tich:	"\nTich hai so: "
+Thuong:	"\nThuong hai so: "
+Max:	"\nSo lon nhat: "
+
+	.text
+main:	la	$a0,Nhap1
+	jal	cout
+	li	$v0,5
+	syscall
+	move 	$a1,$v0
+	la	$a0,Nhap2
+	jal	cout
+	li 	$v0,5
+	syscall
+	move	$a2,$v0
+	la	$a0,Max
+	jal	cout
+	slt 	$t1,$a1,$a2
+	beq	$t1,$zero,max
+	li	$v0,1
+	add 	$a0,$a2,$zero
+	syscall
+	j	next
+max:	li	$v0,1
+	add 	$a0,$a1,$zero
+	syscall
+
+next:	la	$a0,Tong
+	jal 	cout
+	li	$v0,1
+	add	$a0,$a1,$a2
+	syscall
+	la	$a0,Hieu
+	jal	cout
+	li	$v0,1
+	sub	$a0,$a1,$a2
+	syscall
+	la	$a0,Tich
+	jal	cout
+	li	$v0,1
+	mul	$a0,$a1,$a2
+	syscall
+	la	$a0,Thuong
+	jal	cout
+	li	$v0,1
+	div 	$a0,$a1,$a2
+	syscall
+		
+end:	li	$v0,10
+	syscall
+cout:	li	$v0,4
+	syscall
+	jr	$ra
